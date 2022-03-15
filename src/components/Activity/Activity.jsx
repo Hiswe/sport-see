@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { ReactComponent as Oval } from '../../assets/images/Oval.svg'
-import './Activity.scss'
+
 import {
     BarChart,
     Bar,
@@ -11,7 +10,9 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from 'recharts'
-import { API } from '../../Api'
+
+import './Activity.scss'
+import useApi from '../../hooks/useApi.js'
 
 /**@function for tooltip
  *
@@ -39,19 +40,13 @@ const getDayNumber = (date) => {
 
 /**function for showing  to bar chart activity
  *@component
- * @param {number} userId
  * @returns (bar chart <Activity/>)
  */
 
-export const Activity = (props) => {
-    const [data, setData] = useState([])
+export default function Activity(props) {
+    const { data: activity, isLoading } = useApi({ methodName: `getUserActivity` })
 
-    useEffect(() => {
-        if (props.userId)
-            API.getUserActivity(props.userId).then((response) => {
-                setData(response.sessions)
-            })
-    }, [props.userId])
+    if (isLoading) return `Loading…`
 
     return (
         <div className="activity">
@@ -70,7 +65,7 @@ export const Activity = (props) => {
             </header>
             <ResponsiveContainer aspect={4}>
                 <BarChart
-                    data={data}
+                    data={activity.sessions}
                     barGap={8}
                     margin={{
                         top: 5,
@@ -115,9 +110,3 @@ export const Activity = (props) => {
         </div>
     )
 }
-
-Activity.propTypes = {
-    userId: PropTypes.number,
-}
-
-export default Activity

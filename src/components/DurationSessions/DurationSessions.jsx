@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import './DurationSessions.scss'
-import { API } from '../../Api'
-import PropTypes from 'prop-types'
-
+import React from 'react'
 import { LineChart, Line, XAxis, Tooltip } from 'recharts'
+
+import './DurationSessions.scss'
+import useApi from '../../hooks/useApi.js'
+
 
 const days = {
     1: 'L',
@@ -26,19 +26,13 @@ const getDay = (indexDay) => {
 
 /**function  for showing duration session to line chart
  *@component
- * @param {number} userId
  * @return  (<DurationSessions/>)
  */
 
-const DurationSessions = (props) => {
-    const [data, setData] = useState([])
+export default function DurationSessions()  {
+    const { data, isLoading } = useApi({ methodName: `getUserAverageSessions` })
 
-    useEffect(() => {
-        if (props.userId)
-            API.getUserAverageSessions(props.userId).then((response) => {
-                setData(response.sessions)
-            })
-    }, [props.userId])
+    if (isLoading) return `Loading…`
 
     return (
         <div className="duration-session">
@@ -49,7 +43,7 @@ const DurationSessions = (props) => {
                 className="duration-chart"
                 width={250}
                 height={150}
-                data={data}
+                data={data.sessions}
                 margin={{
                     top: 5,
                     right: 0,
@@ -68,7 +62,7 @@ const DurationSessions = (props) => {
                 <Tooltip
                     content={(pointInfo) => {
                         if (!pointInfo.active) return null
-                        const pointData = data.find(
+                        const pointData = data.sessions.find(
                             (x) => x.day === pointInfo.label
                         )
 
@@ -92,7 +86,3 @@ const DurationSessions = (props) => {
         </div>
     )
 }
-DurationSessions.propTypes = {
-    userId: PropTypes.number,
-}
-export default DurationSessions

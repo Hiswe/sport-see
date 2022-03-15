@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+
 import './Performance.scss'
-import PropTypes from 'prop-types'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from 'recharts'
-import { API } from '../../Api'
+import useApi from '../../hooks/useApi.js'
 
 const kind = {
     1: 'Intensité',
@@ -23,19 +23,15 @@ const getKind = (indexKind) => {
 }
 /**@function for  showing activity types as radar chart
  * @component
- * @param {number} userId
  * @returns (<Performance/>)
  */
-const Performance = (props) => {
-    const [data, setData] = useState([])
-    useEffect(() => {
-        if (props.userId) {
-            API.getUserPerformance(props.userId).then((response) => {
-                setData(response.data)
-                console.log(response)
-            })
-        }
-    }, [props.userId])
+export default function Performance() {
+    const { data: performance, isLoading } = useApi({
+        methodName: `getUserPerformance`,
+    })
+
+    if (isLoading) return `Loading…`
+    console.log({ ...performance })
 
     return (
         <RadarChart
@@ -45,7 +41,7 @@ const Performance = (props) => {
             outerRadius={90}
             width={250}
             height={250}
-            data={data}
+            data={performance.data}
             dy={5}
             stroke="#FFFFFF"
         >
@@ -63,10 +59,4 @@ const Performance = (props) => {
             <Radar dataKey="value" stroke="none" fill="red" fillOpacity={0.6} />
         </RadarChart>
     )
-}
-
-export default Performance
-
-Performance.propTypes = {
-    userId: PropTypes.number,
 }

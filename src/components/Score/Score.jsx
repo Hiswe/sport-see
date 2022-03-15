@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
-import { API } from '../../Api'
 import PropTypes from 'prop-types'
 
 import './Score.scss'
 
+
 /**@function  for showing score to pie chat
  * @component
- * @param {number } userId
+ * @param {number} score
+ * @param {number} todayScore
  * @returns( <Score/>)
  */
 
 const Score = (props) => {
-    const [data, setData] = useState([])
-    useEffect(() => {
-        if (props.userId)
-            API.getUser(props.userId).then((res) => {
-                setData(res.score || res.todayScore)
-            })
-    }, [props.userId])
-
+    const data = props.score || props.todayScore
     return (
         <div className="score">
             <header className="score-header">
@@ -52,7 +46,8 @@ const Score = (props) => {
 }
 
 Score.propTypes = {
-    userId: PropTypes.number,
+    score: PropTypes.number,
+    todayScore: PropTypes.number,
 }
 
 export default Score

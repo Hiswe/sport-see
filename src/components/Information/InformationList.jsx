@@ -8,35 +8,32 @@ import PropTypes from 'prop-types'
 
 /**@function for showing cards
  * @component
- * @param {number} calorie
- * @param {number} protein
- * @param {number} lipid
- * @param {number} glucoside
+ * @param {object} keyData
  * @returns (<InformationList/>)
  */
 
-const InformationList = (props) => {
+const InformationList = ({ keyData }) => {
     return (
         <>
             <Information
                 icon={<Calorie />}
                 title="Calories"
-                value={`${props.calorie}kCal`}
+                value={`${keyData.calorieCount}kCal`}
             />
             <Information
                 icon={<Protein />}
                 title="Proteins"
-                value={`${props.protein}g`}
+                value={`${keyData.proteinCount}g`}
             />
             <Information
                 icon={<Glucide />}
                 title="Glucide"
-                value={`${props.glucoside}g`}
+                value={`${keyData.carbohydrateCount}g`}
             />
             <Information
                 icon={<Lipide />}
                 title="Lipides"
-                value={`${props.lipid}g`}
+                value={`${keyData.lipidCount}g`}
             />
         </>
     )
@@ -45,8 +42,5 @@ const InformationList = (props) => {
 export default InformationList
 
 InformationList.propTypes = {
-    calorie: PropTypes.number,
-    lipid: PropTypes.number,
-    protein: PropTypes.number,
-    glucoside: PropTypes.number,
+    keyData: PropTypes.object,
 }
