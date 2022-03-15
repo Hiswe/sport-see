@@ -16,7 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<UserList />} />
-                    <Route path="user/:id" element={<Dashboard />} />
+                    <Route path="/user/:id" element={<Dashboard />} />
                     <Route path="/reglage" element={<ProgressPage />} />
                     <Route path="/communite" element={<ProgressPage />} />
                     <Route path="/yoga" element={<ProgressPage />} />
@@ -26,23 +26,6 @@ function App() {
                     <Route path="/profil" element={<ProgressPage />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Route>
-                <Route path="/" index element={<UserList />} />
-                <Route
-                    path="/user/:id"
-                    element={
-                        <MainLayout>
-                            <Dashboard />
-                        </MainLayout>
-                    }
-                />
-                <Route
-                    path="/profil"
-                    element={
-                        <MainLayout>
-                            <ProgressPage />
-                        </MainLayout>
-                    }
-                />
             </Routes>
         </Router>
     )
