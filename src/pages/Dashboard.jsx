@@ -60,7 +60,6 @@ const Dashboard = () => {
                     )}
                 </article>
             </section>
-            )
         </main>
     )
 }

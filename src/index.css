@@ -32,4 +32,17 @@ code {
 #root {
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: 115px minmax(0, 1fr);
+    grid-template-rows: 90px minmax(0, 1fr);
+    grid-template-areas:
+        'top top'
+        'left content';
+    min-height: 100vh;
+}
+.page-content {
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }

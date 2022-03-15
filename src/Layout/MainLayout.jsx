@@ -15,10 +15,11 @@ export default function MainLayout(props) {
     return (
         <>
             <Header />
-            <div style={{ display: 'flex' }}>
-                <SideBar />
+            <SideBar />
+            <div className="page-content">
                 <Outlet />
             </div>
+            
         </>
     )
 }

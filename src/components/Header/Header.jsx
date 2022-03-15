@@ -1,7 +1,7 @@
 import React from 'react'
-import './Header.scss'
 import logo from './SportSeeLogo.svg'
 
+import './Header.css'
 import HeaderItem from './Item.jsx'
 
 /**@function Component header
@@ -19,7 +19,7 @@ const Header = () => {
             <HeaderItem to="/">Accueil</HeaderItem>
             <HeaderItem to="/profil">Profil</HeaderItem>
             <HeaderItem to="/reglage">Réglage</HeaderItem>
-            <HeaderItem to="/communite">Communité</HeaderItem>
+            <HeaderItem to="/communite">Communauté</HeaderItem>
         </div>
     )
 }
