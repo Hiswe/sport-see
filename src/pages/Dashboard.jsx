@@ -16,48 +16,52 @@ const Dashboard = () => {
     const params = useParams()
     const Navigate = useNavigate()
 
-    const [userInfo, setUserInfo] = useState()
+    const [user, setUser] = useState({})
 
     useEffect(() => {
-        API.getUser(params.id)
-            .then((res) => {
-                setUserInfo({
-                    userId: res.id,
-                    name: res.userInfos.firstName,
-                    calorie: res.keyData.calorieCount,
-                    protein: res.keyData.proteinCount,
-                    glucoside: res.keyData.carbohydrateCount,
-                    lipid: res.keyData.lipidCount,
+        const fetchUser = async () => {
+            try {
+                const response = await API.getUser(params.id)
+                setUser({
+                    id: response.id,
+                    name: response.userInfos.firstName,
+                    calorie: response.keyData.calorieCount,
+                    protein: response.keyData.proteinCount,
+                    glucoside: response.keyData.carbohydrateCount,
+                    lipid: response.keyData.lipidCount,
                 })
-            })
-            .catch(() => {
+            } catch (error) {
+                console.error(`Can't retrieve the user`)
+                console.log(error)
                 Navigate('*')
-            })
-    }, [params.id])
+            }
+        }
+        fetchUser()
+    }, [Navigate, params.id])
 
     return (
         <main className="main-container">
             <section className="profile">
                 <h1>
-                    Bonjour <span>{userInfo?.name}</span>
+                    Bonjour <span>{user.name}</span>
                 </h1>
                 <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
             </section>
             <section className="container">
                 <article className="container-chart">
-                    <Activity userId={userInfo?.userId} />
+                    <Activity userId={user.id} />
                     <div className="cards-info">
-                        <DurationSessions userId={userInfo?.userId} />
-                        <Performance userId={parseInt(userInfo?.userId)} />
-                        <Score userId={userInfo?.userId} />
+                        <DurationSessions userId={user.id} />
+                        <Performance userId={parseInt(user.id)} />
+                        <Score userId={user.id} />
                     </div>
                 </article>
                 <article className="container-information">
                     <InformationList
-                        calorie={userInfo?.calorie}
-                        protein={userInfo?.protein}
-                        glucoside={userInfo?.glucoside}
-                        lipid={userInfo?.lipid}
+                        calorie={user.calorie}
+                        protein={user.protein}
+                        glucoside={user.glucoside}
+                        lipid={user.lipid}
                     />
                 </article>
             </section>
