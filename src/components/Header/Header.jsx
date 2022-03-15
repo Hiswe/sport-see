@@ -1,7 +1,8 @@
 import React from 'react'
 import './Header.scss'
 import logo from './SportSeeLogo.svg'
-import { Link } from 'react-router-dom'
+
+import HeaderItem from './Item.jsx'
 
 /**@function Component header
  *@component
@@ -13,20 +14,12 @@ const Header = () => {
     return (
         <div className="nav-bar">
             <div>
-                <img src={logo} alt="" />
+                <img src={logo} alt="sport-see-logo" />
             </div>
-            <Link className="nav-link" to="/">
-                Acceuil
-            </Link>
-            <Link className="nav-link" to="/profil">
-                Profil
-            </Link>
-            <Link className="nav-link" to="/reglage">
-                Réglage
-            </Link>
-            <Link className="nav-link" to="/communite">
-                Communité
-            </Link>
+            <HeaderItem to="/">Accueil</HeaderItem>
+            <HeaderItem to="/profil">Profil</HeaderItem>
+            <HeaderItem to="/reglage">Réglage</HeaderItem>
+            <HeaderItem to="/communite">Communité</HeaderItem>
         </div>
     )
 }
