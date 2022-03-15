@@ -7,10 +7,12 @@
     justify-content: space-around;
     align-items: center;
     color: white;
+
     nav {
         display: flex;
         flex-direction: column;
         gap: 30px;
+
         .icons {
             background-color: white;
             padding: 5px;
@@ -19,11 +21,11 @@
             // width: 64px;
         }
     }
+
     footer {
         padding-bottom: 57px;
         writing-mode: vertical-rl;
         text-orientation: mixed;
-        font-family: Roboto;
         font-size: 12px;
         font-weight: bold;
     }
