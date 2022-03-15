@@ -1,9 +1,8 @@
 import React from 'react'
-import { LineChart, Line, XAxis, Tooltip } from 'recharts'
+import { ResponsiveContainer, LineChart, Line, XAxis, Tooltip } from 'recharts'
 
 import './DurationSessions.scss'
 import useApi from '../../hooks/useApi.js'
-
 
 const days = {
     1: 'L',
@@ -29,60 +28,62 @@ const getDay = (indexDay) => {
  * @return  (<DurationSessions/>)
  */
 
-export default function DurationSessions()  {
+export default function DurationSessions() {
     const { data, isLoading } = useApi({ methodName: `getUserAverageSessions` })
 
-    if (isLoading) return `Loading…`
+    if (isLoading) return <div className="duration-session">Loading…</div>
 
     return (
         <div className="duration-session">
             <header className="durationSessions__header">
                 <h1>Durée moyenne des sessions</h1>
             </header>
-            <LineChart
-                className="duration-chart"
-                width={250}
-                height={150}
-                data={data.sessions}
-                margin={{
-                    top: 5,
-                    right: 0,
-                    left: 20,
-                    bottom: 0,
-                }}
-            >
-                <XAxis
-                    dataKey="day"
-                    stroke="white"
-                    tickLine={false}
-                    dy={1}
-                    tickFormatter={getDay}
-                />
-
-                <Tooltip
-                    content={(pointInfo) => {
-                        if (!pointInfo.active) return null
-                        const pointData = data.sessions.find(
-                            (x) => x.day === pointInfo.label
-                        )
-
-                        return (
-                            <div className="tool">
-                                {pointData.sessionLength} min
-                            </div>
-                        )
+            <ResponsiveContainer aspect={1} >
+                <LineChart
+                    className="duration-chart"
+                    width={250}
+                    height={150}
+                    data={data.sessions}
+                    margin={{
+                        top: 5,
+                        right: 0,
+                        left: 20,
+                        bottom: 0,
                     }}
-                />
+                >
+                    <XAxis
+                        dataKey="day"
+                        stroke="white"
+                        tickLine={false}
+                        dy={1}
+                        tickFormatter={getDay}
+                    />
 
-                <Line
-                    className="line-information"
-                    type="monotone"
-                    dataKey="sessionLength"
-                    stroke="white"
-                    dot={false}
-                    activeDot={{ r: 7 }}
-                />
-            </LineChart>
+                    <Tooltip
+                        content={(pointInfo) => {
+                            if (!pointInfo.active) return null
+                            const pointData = data.sessions.find(
+                                (x) => x.day === pointInfo.label
+                            )
+
+                            return (
+                                <div className="tool">
+                                    {pointData.sessionLength} min
+                                </div>
+                            )
+                        }}
+                    />
+
+                    <Line
+                        className="line-information"
+                        type="monotone"
+                        dataKey="sessionLength"
+                        stroke="white"
+                        dot={false}
+                        activeDot={{ r: 7 }}
+                    />
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     )
 }

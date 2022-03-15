@@ -44,9 +44,11 @@ const getDayNumber = (date) => {
  */
 
 export default function Activity(props) {
-    const { data: activity, isLoading } = useApi({ methodName: `getUserActivity` })
+    const { data: activity, isLoading } = useApi({
+        methodName: `getUserActivity`,
+    })
 
-    if (isLoading) return `Loading…`
+    if (isLoading) return <div className="activity">`Loading…`</div>
 
     return (
         <div className="activity">

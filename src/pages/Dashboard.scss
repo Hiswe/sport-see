@@ -1,6 +1,8 @@
 .main-container {
+    flex: 1 1 0;
     margin: auto;
     padding: 20px;
+    max-width: 1280px;
 
     .profile {
         h1 {
@@ -14,40 +16,17 @@
             font-size: 18px;
         }
     }
+}
 
-    .container {
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
+.container {
+    grid-gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 260px;
+    grid-template-areas:
+        'activity     activity        activity    information-list'
+        'sessions     performance     score       information-list';
 
-        @media (max-width: 1400px) {
-            gap: 15px;
-        }
-
-        .container-chart {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-
-            @media (max-width: 1400px) {
-                gap: 15px;
-            }
-
-            .cards-info {
-                display: flex;
-                flex-direction: row;
-                gap: 30px;
-                @media (max-width: 1400px) {
-                    gap: 15px;
-                }
-            }
-        }
-
-        .container-information {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 30px;
-        }
+    @media (max-width: 1400px) {
+        gap: 15px;
     }
 }

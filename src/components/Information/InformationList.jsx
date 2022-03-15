@@ -1,10 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+import './InformationList.css'
 import Information from './Information'
 import { ReactComponent as Calorie } from './icons/calorie.svg'
 import { ReactComponent as Protein } from './icons/protein.svg'
 import { ReactComponent as Lipide } from './icons/lipide.svg'
 import { ReactComponent as Glucide } from './icons/glucide.svg'
-import PropTypes from 'prop-types'
 
 /**@function for showing cards
  * @component
@@ -12,9 +14,11 @@ import PropTypes from 'prop-types'
  * @returns (<InformationList/>)
  */
 
-const InformationList = ({ keyData }) => {
+const InformationList = ({ keyData, isLoading }) => {
+
+    if (isLoading) return <div className="information-list">Loading…</div>
     return (
-        <>
+        <div className="information-list">
             <Information
                 icon={<Calorie />}
                 title="Calories"
@@ -35,7 +39,7 @@ const InformationList = ({ keyData }) => {
                 title="Lipides"
                 value={`${keyData.lipidCount}g`}
             />
-        </>
+        </div>
     )
 }
 

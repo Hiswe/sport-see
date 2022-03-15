@@ -1,0 +1,6 @@
+.information-list {
+    grid-area: information-list;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}

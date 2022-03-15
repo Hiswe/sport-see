@@ -31,34 +31,15 @@ const Dashboard = () => {
                 </section>
             )}
             <section className="container">
-                <article className="container-chart">
-                    <Activity />
-                    <div className="cards-info">
-                        <DurationSessions />
-                        <Performance />
-                        {isLoading ? (
-                            `loading…`
-                        ) : (
-                            <Score
-                                score={data.score}
-                                todayScore={data.todayScore}
-                            />
-                        )}
-                    </div>
-                </article>
-                <article className="container-information">
-                    {isLoading ? (
-                        `loading…`
-                    ) : (
-                        <InformationList
-                            keyData={data.keyData}
-                            calorie={data.keyData?.calorieCount}
-                            protein={data.keyData?.proteinCount}
-                            glucoside={data.keyData?.carbohydrateCount}
-                            lipid={data.keyData?.lipidCount}
-                        />
-                    )}
-                </article>
+                <Activity />
+                <DurationSessions />
+                <Performance />
+                <Score
+                    isLoading={isLoading}
+                    score={data.score}
+                    todayScore={data.todayScore}
+                />
+                <InformationList keyData={data.keyData} isLoading={isLoading} />
             </section>
         </main>
     )
